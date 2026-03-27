@@ -1,4 +1,5 @@
 using MarketingSite.Client;
+using Microsoft.Extensions.Logging;
 
 namespace MarketingSite.Services;
 
@@ -7,7 +8,7 @@ public interface IHelloWorldService
     Task<string> GenerateHtmlContent();
 }
 
-public class HelloWorldService(IHtmlTemplateGenerator htmlGenerator, ICacheService cache, IMarketingApiClient dtService)
+public class HelloWorldService(IHtmlTemplateGenerator htmlGenerator, ICacheService cache, IMarketingApiClient dtService, ILogger<HelloWorldService> logger)
     : IHelloWorldService
 {
     public async Task<string> GenerateHtmlContent()
@@ -30,9 +31,10 @@ public class HelloWorldService(IHtmlTemplateGenerator htmlGenerator, ICacheServi
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "An error occurred while generating hello world content.");
             var htmlError = htmlGenerator.GenerateHelloWorld(
                 "Error",
-                $"<h1>Error</h1><p style='color: red; background-color: yellow;'>An error occurred: {ex.Message}</p><code>Stack Trace: {ex.StackTrace}</code>"
+                "<h1>Error</h1><p style='color: red; background-color: yellow;'>An unexpected error occurred. Please try again later.</p>"
             );
             return htmlError;
         }

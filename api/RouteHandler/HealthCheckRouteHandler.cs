@@ -1,10 +1,11 @@
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 
 namespace MarketingApi.RouteHandler;
 
 public record HealthCheckResponse(string Status, string? Error = null);
 
-public class HealthCheckRouteHandler(IConfiguration configuration)
+public class HealthCheckRouteHandler(IConfiguration configuration, ILogger<HealthCheckRouteHandler> logger)
 {
     public async Task<IResult> HandleRequest(HttpContext context, CancellationToken cancellationToken)
     {
@@ -15,7 +16,8 @@ public class HealthCheckRouteHandler(IConfiguration configuration)
         }
         catch (Exception ex)
         {
-            return Results.Ok(new HealthCheckResponse("unhealthy", ex.Message));
+            logger.LogError(ex, "Health check failed: SQL connection could not be established.");
+            return Results.Ok(new HealthCheckResponse("unhealthy", "Database connectivity check failed."));
         }
     }
 

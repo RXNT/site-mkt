@@ -7,6 +7,7 @@ public interface ICacheService : IDisposable
 {
     Task<T?> GetAsync<T>(string key) where T : class;
     Task SetAsync<T>(string key, T value, TimeSpan? expiry = null) where T : class;
+    Task PingAsync(CancellationToken cancellationToken = default);
 }
 
 public class CacheService(IConfiguration configuration) : ICacheService
@@ -38,5 +39,10 @@ public class CacheService(IConfiguration configuration) : ICacheService
     {
         var json = JsonSerializer.Serialize(value);
         await Database.StringSetAsync(key, json, expiry);
+    }
+
+    public async Task PingAsync(CancellationToken cancellationToken = default)
+    {
+        await Database.PingAsync();
     }
 }
