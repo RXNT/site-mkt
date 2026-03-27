@@ -43,6 +43,7 @@ public class CacheService(IConfiguration configuration) : ICacheService
 
     public async Task PingAsync(CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         await Database.PingAsync();
     }
 }
