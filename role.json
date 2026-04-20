@@ -1,0 +1,17 @@
+{
+  "Name": "DevOpsCandidate",
+  "Description": "Role for the DevOps candidate.s",
+  "Actions": ["*"],
+  "AssignableScopes": ["/subscriptions/81f05b04-b933-41d8-8aed-76c33df7030c"],
+  "NotActions": [
+    "Microsoft.Authorization/elevateAccess/Action",
+    "Microsoft.Blueprint/blueprintAssignments/write",
+    "Microsoft.Blueprint/blueprintAssignments/delete",
+    "Microsoft.Compute/galleries/share/action",
+    "Microsoft.Purview/consents/write",
+    "Microsoft.Purview/consents/delete",
+    "Microsoft.Resources/deploymentStacks/manageDenySetting/action",
+    "Microsoft.Subscription/cancel/action",
+    "Microsoft.Subscription/enable/action"
+  ]
+}
