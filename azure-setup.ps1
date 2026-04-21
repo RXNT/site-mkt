@@ -24,7 +24,25 @@ function CreateRole {
         return
     }
 
-    $o = $(az role definition create --role-definition "role.json" --only-show-errors)
+    $roleJson = @{
+        "Name" = "DevOpsCandidate"
+        "Description" = "Role for the DevOps candidate."
+        "Actions" = @("*")
+        "AssignableScopes" = @("/subscriptions/$subscriptionId")
+        "NotActions" = @(
+            "Microsoft.Authorization/elevateAccess/Action"
+            "Microsoft.Blueprint/blueprintAssignments/write"
+            "Microsoft.Blueprint/blueprintAssignments/delete"
+            "Microsoft.Compute/galleries/share/action"
+            "Microsoft.Purview/consents/write"
+            "Microsoft.Purview/consents/delete"
+            "Microsoft.Resources/deploymentStacks/manageDenySetting/action"
+            "Microsoft.Subscription/cancel/action"
+            "Microsoft.Subscription/enable/action"
+        )
+    } | ConvertTo-Json -Depth 10
+
+    $o = $($roleJson | az role definition create --role-definition "@-" --only-show-errors)
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Failed to create role."
         exit
