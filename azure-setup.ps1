@@ -52,7 +52,7 @@ function CreateRole {
 }
 
 function CreateServicePrincipal {
-    $spName = "rxnt-devops-candidate-5"
+    $spName = "rxnt-devops-candidate"
     Write-Host "Creating Service Principal '$spName'..."
 
     $sp = Get-AzADServicePrincipal -DisplayName $spName
