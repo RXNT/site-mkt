@@ -33,3 +33,7 @@ The Api container expects the following environment variables:
 - `DB_CONNECTION_STRING` to contain a connection string for a SQL Server.
 
 The solution also contains a `docker-compose.yml` file that can be used to run the site locally using Docker.
+
+## Azure Authentication
+
+`azure-setup.ps1` creates a custom role and service principal intended for authenticating Terraform.
