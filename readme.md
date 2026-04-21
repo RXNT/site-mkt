@@ -36,4 +36,4 @@ The solution also contains a `docker-compose.yml` file that can be used to run t
 
 ## Azure Authentication
 
-`azure-setup.ps1` creates a custom role and service principal intended for authenticating Terraform.
+`azure-setup.ps1` creates a custom role and service principal intended for authenticating Terraform. Before executing the script, use `az login` to login and select the desired subscription.
