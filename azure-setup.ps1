@@ -76,7 +76,7 @@ function CreateServicePrincipal {
     }
 
     Write-Host "Generating client secret..."
-    $tomorrow = (Get-Date).AddDays(1).ToString("yyyy-MM-dd")
+    $tomorrow = (Get-Date).AddDays(1).ToString("yyyy-MM-ddTHH:mm:ssZ")
     $output = $(az ad app credential reset --id $app.AppId --append --display-name "$spName" --end-date "$tomorrow" --only-show-errors)
 
     $client_secret = $output | jq .password
